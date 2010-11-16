@@ -1,0 +1,12 @@
+int main()
+{
+int n,k,nfact;
+n=''';
+nfact=1;
+k=1;
+while (k < n) {
+k=k+1;
+nfakt= k*nfact;
+}
+return 0;
+}

@@ -1,0 +1,15 @@
+int main() {
+// krece // ****program""
+int n, for123;
+n=10; for123=0;
+while (n < 100) {
+n=n+1;
+for123= n*12;
+}
+char if1 = "tk//mko?kto*for"; /* glupi komentari
+ neki komentari	bezveze
+			skroz bzvz */
+
+float k_b3_1= .12 + 1.22e-3 + 33.1E2;
+return 0;
+}

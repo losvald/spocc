@@ -1,0 +1,17 @@
+void main()
+{
+int n , vkratnik , broj, i;              /*  Niz brojeva  */
+int k[1000]={0};                              
+                                               
+// bla bla """"""lsldksdk
+for ( broj = 2; broj <= n; broj++ ){
+
+vkratnik = broj;
+if ( k[vkratnik] == 0 ){
+	
+	 for ( i = 2; vkratnik <= n; i++ ){            
+	    vkratnik = broj * i;               
+   	       }                                            
+}		       
+ }				
+}

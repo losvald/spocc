@@ -1,0 +1,8 @@
+target/
+*/src/generated/
+
+.settings/
+
+.svn
+*~
+\#*\#

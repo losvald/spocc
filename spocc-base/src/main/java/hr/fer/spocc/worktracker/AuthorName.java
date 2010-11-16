@@ -1,0 +1,13 @@
+package hr.fer.spocc.worktracker;
+
+public enum AuthorName {
+	LEO_OSVALD,
+	HRVOJE_NOVAK,
+	JOSIP_JURICIC,
+	MATKO_RAGUZ,
+	LOVRO_BIOCIC,
+	MARIN_PRANJIC,
+	ANA_GRDJAN,
+	MARKO_SRSAN,
+	SASA_LEDINSCAK;
+}

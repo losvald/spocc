@@ -1,0 +1,34 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>hr.fer.spocc</groupId>
+  <artifactId>spocc</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>spocc-base</module>
+  	<module>spocc-core</module>
+  	<module>spocc-ide</module>
+  	<module>spocc-lag</module>
+  	<module>spocc-sag</module>
+  	<module>spocc-gen-common</module>
+  </modules>
+  
+  <dependencies>
+		<!-- Apache dependencies with compile scope -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<!-- Spring is not compatible with version 4.5 of junit! -->
+			<version>4.4</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+  
+</project>
