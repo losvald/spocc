@@ -1,0 +1,39 @@
+struct P {
+    char m, tp;
+    int fk;
+
+};
+
+/*
+bzvz zzzzzz)))))""""""""""//
+*/
+void bla(int y) {
+    return;
+}
+
+int main (void) {
+int x;
+const int for1 = 12;
+int b[10] = {1,2,12};
+char car = "for/if";
+int i = 3*2+5-3|3&3^3;
+int a = 0xaaaff;
+// fadsfadfdfadf42354tt54t6***+4rq((7/
+
+struct P struk;
+struk.m = '\n';
+struk.tp = '\\';
+
+ if (15>=3 && i>=2 || i<=12) {
+        bla(0);
+    } else {
+        bla(21);
+    }
+    
+    while (100) {
+        break;
+    }
+for (i=0; i<=3; ++i) {
+	struk.fk=i+++for1;
+}
+}

@@ -1,0 +1,14 @@
+int main(void)
+{
+	int n,k,nfact;
+	n=10;
+	nfact=1;
+	k=1;
+	
+	while (k < n) {
+		k=k+1;
+		nfact= k*nfact;
+	}
+	
+	return 0;
+}

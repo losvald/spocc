@@ -1,0 +1,130 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>spocc</artifactId>
+		<groupId>hr.fer.spocc</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>hr.fer.spocc</groupId>
+	<artifactId>spocc-core</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>SPOCC Core</name>
+	<description>Command line program.</description>
+
+	<dependencies>
+		<!-- SPOCC dependencies -->
+		<dependency>
+			<groupId>hr.fer.spocc</groupId>
+			<artifactId>spocc-base</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- JArgs GNU Command Line Parser -->
+		<dependency>
+			<groupId>net.sf</groupId>
+			<artifactId>jargs</artifactId>
+			<version>1.0</version>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<!-- for jargs GNU Command Line Parser -->
+		<repository>
+			<id>JBOSS</id>
+			<name>JBoss Repository</name>
+			<url>http://repository.jboss.org/maven2/
+			</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerVersion>1.6</compilerVersion>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.3</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/generated/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- this create jar file of code from src/test/java so modules with tests 
+				can share code -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>hr.fer.spocc.Spocc</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.dstovall</groupId>
+				<artifactId>onejar-maven-plugin</artifactId>
+				<version>1.4.4</version>
+				<executions>
+					<execution>
+						<configuration>
+							<!-- Optional -->
+							<onejarVersion>0.97</onejarVersion>
+							<!-- Optional, default is false -->
+							<attachToBuild>true</attachToBuild>
+							<!-- Optional, default is "onejar" -->
+							<classifier>onejar</classifier>
+						</configuration>
+						<goals>
+							<goal>one-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>onejar-maven-plugin.googlecode.com</id>
+			<url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
+		</pluginRepository>
+	</pluginRepositories>
+</project>

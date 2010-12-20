@@ -1,0 +1,4 @@
+struct P {
+    char m, tp;
+    int fk;
+};
