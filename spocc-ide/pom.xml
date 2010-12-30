@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>spocc</artifactId>
+		<groupId>hr.fer.spocc</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>org.spocc</groupId>
+	<artifactId>spocc-ide</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<dependencies>
+		<!-- SPOCC dependencies -->
+		<dependency>
+			<groupId>hr.fer.spocc</groupId>
+			<artifactId>spocc-core</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	
+		<dependency>
+			<groupId>rationals</groupId>
+			<artifactId>jazzy-core</artifactId>
+			<version>2.0-alpha-1</version>
+			<systemPath>${basedir}/lib/jazzy-core.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>rationals</groupId>
+			<artifactId>jazzy-swing</artifactId>
+			<version>2.0-alpha-1</version>
+			<systemPath>${basedir}/lib/jazzy-swing.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<!--  
+		<dependency>
+			<groupId>rationals</groupId>
+			<artifactId>metaphase-editor</artifactId>
+			<version>2.0-alpha-1</version>
+			<systemPath>${basedir}/lib/meta.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		-->
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerVersion>1.6</compilerVersion>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>hr.fer.spocc.ide.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.dstovall</groupId>
+				<artifactId>onejar-maven-plugin</artifactId>
+				<version>1.4.4</version>
+				<executions>
+					<execution>
+						<configuration>
+							<!-- Optional -->
+							<onejarVersion>0.97</onejarVersion>
+							<!-- Optional, default is false -->
+							<attachToBuild>true</attachToBuild>
+							<!-- Optional, default is "onejar" -->
+							<classifier>onejar</classifier>
+						</configuration>
+						<goals>
+							<goal>one-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
