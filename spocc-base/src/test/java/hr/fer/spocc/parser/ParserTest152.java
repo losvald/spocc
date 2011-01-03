@@ -8,7 +8,58 @@ import hr.fer.spocc.grammar.cfg.CfgProductionRule;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 public class ParserTest152 extends ParserTest {
+	
+	@Test
+	public void SimpleTest0() {
+		Assert.assertFalse(parse("d"));
+	}
+	
+	@Test
+	public void SimpleTest1() {
+		Assert.assertFalse(parse("c", "d"));
+	}
+	
+	@Test
+	public void SimpleTest2() {
+		Assert.assertTrue(parse("d", "d"));
+		
+		assertParseTreeEquals("<X>( <S>( <C>( d ) <C>( d ) ) )");
+	}
+	
+	@Test
+	public void Test0() {
+		Assert.assertFalse(parse("c", "d", "c", "d", "d"));
+	}
+	
+	@Test
+	public void Test1() {
+		Assert.assertFalse(parse("c", "c", "c", "d", "c", "c", "c", "d", "d"));
+	}
+	
+	@Test
+	public void Test2() {
+		Assert.assertTrue(parse("c", "c", "d", "d"));
+		
+		assertParseTreeEquals("<X>( <S>( <C>( c <C>( c <C>( d ) ) ) <C>( d ) ) )");
+	}
+	
+	@Test
+	public void Test3() {
+		Assert.assertTrue(parse("c", "c", "c", "d", "c", "c", "c", "d"));
+
+		assertParseTreeEquals("<X>( <S>( <C>( c <C>( c <C>( c <C>( d ) ) ) ) <C>( c <C>( c <C>( c <C>( d ) ) ) ) ) )");	
+	}
+	
+	@Test
+	public void Test4() {
+		Assert.assertTrue(parse("d", "c", "c", "c", "d"));
+	
+		assertParseTreeEquals("<X>( <S>( <C>( d ) <C>( c <C>( c <C>( c <C>( d ) ) ) ) ) )");
+	}
 	
 	private enum ParserTokens implements TokenType {
 		c, d;
@@ -32,6 +83,10 @@ public class ParserTest152 extends ParserTest {
 		
 		final Map<String, CfgProductionRule<TokenType>> productionMap
 		= new HashMap<String, CfgProductionRule<TokenType>>();
+		
+		productionMap.put("X->S", createRule(
+				createVar("X"),
+				createVar("S")));
 		
 		productionMap.put("S->CC", createRule(
 				createVar("S"),
@@ -69,14 +124,21 @@ public class ParserTest152 extends ParserTest {
 				MoveFactory.createPushMove(4).perform(parser);
 			}
 		});
-		parsingTable.setAction(0, createTerminal("S"), new Action() {
+		parsingTable.setAction(0, createVar("S"), new Action() {
 			
 			@Override
 			public void perform(Parser parser) {
 				MoveFactory.createPushMove(1).perform(parser);
 			}
 		});
-		parsingTable.setAction(0, createTerminal("C"), new Action() {
+		parsingTable.setAction(0, createVar("X"), new Action() {
+			
+			@Override
+			public void perform(Parser parser) {
+				MoveFactory.createPushMove(10).perform(parser);
+			}
+		});
+		parsingTable.setAction(0, createVar("C"), new Action() {
 			
 			@Override
 			public void perform(Parser parser) {
@@ -87,7 +149,7 @@ public class ParserTest152 extends ParserTest {
 			
 			@Override
 			public void perform(Parser parser) {
-				MoveFactory.acceptMove().perform(parser);
+				MoveFactory.createReduceMove(productionMap.get("X->S")).perform(parser);
 			}
 		});
 		parsingTable.setAction(2, createTerminal("c"), new Action() {
@@ -106,7 +168,7 @@ public class ParserTest152 extends ParserTest {
 				MoveFactory.createPushMove(7).perform(parser);
 			}
 		});
-		parsingTable.setAction(2, createTerminal("C"), new Action() {
+		parsingTable.setAction(2, createVar("C"), new Action() {
 			
 			@Override
 			public void perform(Parser parser) {
@@ -129,7 +191,14 @@ public class ParserTest152 extends ParserTest {
 				MoveFactory.createPushMove(4).perform(parser);
 			}
 		});
-		parsingTable.setAction(4, createTerminal("C"), new Action() {
+		parsingTable.setAction(3, createVar("C"), new Action() {
+			
+			@Override
+			public void perform(Parser parser) {
+				MoveFactory.createPushMove(8).perform(parser);
+			}
+		});
+		parsingTable.setAction(4, createVar("C"), new Action() {
 			
 			@Override
 			public void perform(Parser parser) {
@@ -140,16 +209,14 @@ public class ParserTest152 extends ParserTest {
 			
 			@Override
 			public void perform(Parser parser) {
-				MoveFactory.createShiftMove().perform(parser);
-				MoveFactory.createPushMove(3).perform(parser);
+				MoveFactory.createReduceMove(productionMap.get("C->d")).perform(parser);
 			}
 		});
 		parsingTable.setAction(4, createTerminal("d"), new Action() {
 			
 			@Override
 			public void perform(Parser parser) {
-				MoveFactory.createShiftMove().perform(parser);
-				MoveFactory.createPushMove(3).perform(parser);
+				MoveFactory.createReduceMove(productionMap.get("C->d")).perform(parser);
 			}
 		});
 		parsingTable.setAction(5, SEQUENCE_TERMINATOR_SYMBOL, new Action() {
@@ -175,7 +242,7 @@ public class ParserTest152 extends ParserTest {
 				MoveFactory.createPushMove(7).perform(parser);
 			}
 		});
-		parsingTable.setAction(6, createTerminal("C"), new Action() {
+		parsingTable.setAction(6, createVar("C"), new Action() {
 			
 			@Override
 			public void perform(Parser parser) {
@@ -193,16 +260,14 @@ public class ParserTest152 extends ParserTest {
 			
 			@Override
 			public void perform(Parser parser) {
-				MoveFactory.createShiftMove().perform(parser);
-				MoveFactory.createPushMove(2).perform(parser);
+				MoveFactory.createReduceMove(productionMap.get("C->cC")).perform(parser);
 			}
 		});
 		parsingTable.setAction(8, createTerminal("d"), new Action() {
 			
 			@Override
 			public void perform(Parser parser) {
-				MoveFactory.createShiftMove().perform(parser);
-				MoveFactory.createPushMove(2).perform(parser);
+				MoveFactory.createReduceMove(productionMap.get("C->cC")).perform(parser);
 			}
 		});
 		parsingTable.setAction(9, SEQUENCE_TERMINATOR_SYMBOL, new Action() {
@@ -211,7 +276,14 @@ public class ParserTest152 extends ParserTest {
 			public void perform(Parser parser) {
 				MoveFactory.createReduceMove(productionMap.get("C->cC")).perform(parser);
 			}
-		});		
+		});
+		parsingTable.setAction(10, SEQUENCE_TERMINATOR_SYMBOL, new Action() {
+			
+			@Override
+			public void perform(Parser parser) {
+				MoveFactory.acceptMove().perform(parser);
+			}
+		});
 		return parsingTable;
 	}
 

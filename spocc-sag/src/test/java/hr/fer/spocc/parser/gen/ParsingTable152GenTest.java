@@ -68,6 +68,10 @@ public class ParsingTable152GenTest extends ParsingTableGenTest {
 		CfgGrammar<String> parserGrammar = 
 			new CfgGrammar<String>();
 
+		productionMap.put("X->S", createRule(
+				createVar("X"),
+				createVar("S")));
+		
 		productionMap.put("S->CC", createRule(
 				createVar("S"),
 				createVar("C"),
@@ -100,12 +104,18 @@ public class ParsingTable152GenTest extends ParsingTableGenTest {
 						Arrays.asList(
 								new MoveDescriptor(MoveType.PUSH, 1))
 				),
+				new ActionDescriptor(0, createTerminal("X"),
+						Arrays.asList(
+								new MoveDescriptor(MoveType.PUSH, 10))
+				),
 				new ActionDescriptor(0, createTerminal("C"),
 						Arrays.asList(
 								new MoveDescriptor(MoveType.PUSH, 2))
 				),
 				new ActionDescriptor(1, SEQUENCE_TERMINATOR_SYMBOL,
-						Arrays.asList(new MoveDescriptor(MoveType.ACCEPT))
+						Arrays.asList(
+								new MoveDescriptor(MoveType.REDUCE,
+										productionMap.get("X->S")))
 				),
 				new ActionDescriptor(2, createTerminal("c"),
 						Arrays.asList(
@@ -131,19 +141,23 @@ public class ParsingTable152GenTest extends ParsingTableGenTest {
 								new MoveDescriptor(MoveType.SHIFT),
 								new MoveDescriptor(MoveType.PUSH, 4))
 				),
+				new ActionDescriptor(3, createTerminal("C"),
+						Arrays.asList(
+								new MoveDescriptor(MoveType.PUSH, 8))
+				),
 				new ActionDescriptor(4, createTerminal("C"),
 						Arrays.asList(
 								new MoveDescriptor(MoveType.PUSH, 8))
 				),
 				new ActionDescriptor(4, createTerminal("c"),
 						Arrays.asList(
-								new MoveDescriptor(MoveType.SHIFT),
-								new MoveDescriptor(MoveType.PUSH, 3))
+								new MoveDescriptor(MoveType.REDUCE,
+										productionMap.get("C->d")))
 				),
 				new ActionDescriptor(4, createTerminal("d"),
 						Arrays.asList(
-								new MoveDescriptor(MoveType.SHIFT),
-								new MoveDescriptor(MoveType.PUSH, 3))
+								new MoveDescriptor(MoveType.REDUCE,
+										productionMap.get("C->d")))
 				),
 				new ActionDescriptor(5, SEQUENCE_TERMINATOR_SYMBOL,
 						Arrays.asList(
@@ -171,18 +185,21 @@ public class ParsingTable152GenTest extends ParsingTableGenTest {
 				),
 				new ActionDescriptor(8, createTerminal("c"),
 						Arrays.asList(
-								new MoveDescriptor(MoveType.SHIFT),
-								new MoveDescriptor(MoveType.PUSH, 2))
+								new MoveDescriptor(MoveType.REDUCE,
+										productionMap.get("C->cC")))
 				),
 				new ActionDescriptor(8, createTerminal("d"),
 						Arrays.asList(
-								new MoveDescriptor(MoveType.SHIFT),
-								new MoveDescriptor(MoveType.PUSH, 2))
+								new MoveDescriptor(MoveType.REDUCE,
+										productionMap.get("C->cC")))
 				),
 				new ActionDescriptor(9, SEQUENCE_TERMINATOR_SYMBOL,
 						Arrays.asList(
 								new MoveDescriptor(MoveType.REDUCE,
 										productionMap.get("C->cC")))
+				),
+				new ActionDescriptor(10, SEQUENCE_TERMINATOR_SYMBOL,
+						Arrays.asList(new MoveDescriptor(MoveType.ACCEPT))
 				)
 		);
 
